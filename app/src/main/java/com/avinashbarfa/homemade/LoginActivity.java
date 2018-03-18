@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 else
                     Toast.makeText(this, "Success ! %s"+result.getAuthorizationCode().substring(0,10) , Toast.LENGTH_SHORT).show();
 
-                startActivity(new Intent(this , MainActivity.class));
+                startActivity(new Intent(this , UpdateUserActivity.class));
             }
         }
     }

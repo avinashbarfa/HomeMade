@@ -1,5 +1,6 @@
 package com.avinashbarfa.homemade;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,6 @@ import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
 import com.facebook.accountkit.AccountKitError;
-import com.facebook.accountkit.AccountKitLoginResult;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AccountKit.logOut();
                 finish();
-
-                //eerororr
             }
         });
     }
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Account account) {
                 TextView userid , phone ,email;
 
-            /*    userid = (TextView)findViewById(R.id.editUserId);
+            /*  userid = (TextView)findViewById(R.id.editUserId);
                 userid.setText(account.getId());
                 phone = (TextView) findViewById(R.id.editPhoneNumber);
                 phone.setText(account.getPhoneNumber().toString());
