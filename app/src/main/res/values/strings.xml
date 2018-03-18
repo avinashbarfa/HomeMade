@@ -4,4 +4,7 @@
     <string name="fb_app_id">145175842976227</string>
     <string name="account_kit_client_id">27698bab6c4be4610f7d6c7a79805aad</string>
     <string name="ak_login_protocol_scheme">ab27698bab6c4be4610f7d6c7a79805aad</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
