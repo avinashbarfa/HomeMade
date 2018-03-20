@@ -1,4 +1,4 @@
-package com.avinashbarfa.homemade;
+package com.avinashbarfa.homemade.Class;
 
 /**
  * Created by Avinash Barfa on 3/18/2018.
@@ -6,13 +6,8 @@ package com.avinashbarfa.homemade;
 
 public class UserInfoBean {
 
-    private String userName, emailID,userID;
-
-    public UserInfoBean(String userID, String userName, String emailID) {
-        this.userName = userName;
-        this.emailID = emailID;
-        this.userID = userID;
-    }
+    private String userName, emailID;
+    private  Id _id;
 
     public String getUserName() {
         return userName;
@@ -20,10 +15,6 @@ public class UserInfoBean {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
     }
 
     public String getEmailID() {
@@ -34,7 +25,11 @@ public class UserInfoBean {
         this.emailID = emailID;
     }
 
-    public String getUserID() {
-        return userID;
+    public Id get_id() {
+        return _id;
+    }
+
+    public void set_id(Id _id) {
+        this._id = _id;
     }
 }
