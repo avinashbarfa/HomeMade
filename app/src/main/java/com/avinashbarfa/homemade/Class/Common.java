@@ -16,5 +16,12 @@ public class Common {
         stringBuilder.append("/"+userInfoBean.get_id().getOid()+"?apiKey="+API_KEY);
         return stringBuilder.toString();
     }
+    
+    public static String getAddressAPI() {
+		String baseUrl = String.format("http://api.mlab.com/api/i/databases/%s/collections/%s",DB_NAME,COLLECTION_NAME);
+        StringBuilder stringBuilder = new StringBuilder(baseUrl);
+        stringBuilder.append("?apiKey="+API_KEY);
+        return stringBuilder.toString();
+	}
 
 }
