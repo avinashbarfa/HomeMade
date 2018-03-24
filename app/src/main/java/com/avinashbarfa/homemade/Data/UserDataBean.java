@@ -6,7 +6,7 @@ package com.avinashbarfa.homemade.Data;
 
 public class UserDataBean {
 
-    private String fullName, _Id , emailId , accountCreatedOn;
+    private String fullName, _Id , emailId , accountCreatedOn , dateOfBirth;
     private long contactNumber;
 
     public String getFullName() {
@@ -47,5 +47,13 @@ public class UserDataBean {
 
     public void setContactNumber(long contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
