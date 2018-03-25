@@ -6,7 +6,7 @@ package com.avinashbarfa.homemade.Data;
 
 public class Links {
 
-    private String dataBaseIPAddress = "http://192.168.31.22";
+    private String dataBaseIPAddress = "http://192.168.0.105";
 
     public String getDataBaseIPAddress() {
         return dataBaseIPAddress;
