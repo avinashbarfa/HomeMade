@@ -32,38 +32,16 @@ import com.facebook.accountkit.AccountKitError;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final int REQUEST_LOCATION = 1;
-    Button gpsFixed;
-    TextView locationTxtView;
-    LocationManager locationManager;
-    String latitude,longitude;
+    Button btnArrowDown;
+    TextView locationMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        locationTxtView = (TextView)findViewById(R.id.location);
-        gpsFixed = (Button)findViewById(R.id.gps_fixed);
-        gpsFixed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                 //   buildAlertMessageNoGps();
-                    Toast.makeText(MainActivity.this, "Error in jkl", Toast.LENGTH_LONG).show();
-                } else if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    getLocation();
-                }
-            }
-        });
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -83,29 +61,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
-    private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        } else {
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location != null) {
-                double lati = location.getLatitude();
-                double lon = location.getLongitude();
-                latitude = String.valueOf(lati);
-                longitude = String.valueOf(lon);
-
-                locationTxtView.setText(latitude+" "+longitude);
-            } else {
-                locationTxtView.setText("Unable To Trace Location");
+        locationMain = (TextView) findViewById(R.id.location);
+        //locationMain.setText();
+        btnArrowDown =(Button) findViewById(R.id.btnArrowDown);
+        btnArrowDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SelectLocation.class));
             }
-
-        }
+        });
     }
+
+
 
     @Override
     public void onBackPressed() {
