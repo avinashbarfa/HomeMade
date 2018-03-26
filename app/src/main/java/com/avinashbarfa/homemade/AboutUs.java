@@ -12,20 +12,18 @@ public class AboutUs extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_developer);
+        setContentView(R.layout.activity_about_us);
 
         btnContact = (Button)findViewById(R.id.btnContact);
         btnFeedback = (Button)findViewById(R.id.btnFeedback);
 
         btnContact.setOnClickListener(this);
         btnFeedback.setOnClickListener(this);
-
-
     }
 
     @Override
     public void onClick(View view) {
-        if(view == btnContact) {
+        if (view == btnContact) {
             Intent email = new Intent(Intent.ACTION_SEND);
             email.putExtra(Intent.EXTRA_EMAIL, new String[]{"avibarfa98@gmail.com"});
             email.putExtra(Intent.EXTRA_SUBJECT, "");
@@ -46,10 +44,9 @@ public class AboutUs extends AppCompatActivity implements View.OnClickListener {
                 sAux = sAux + "https://play.google.com/store/apps/details?id=Orion.Soft \n\n";
                 i.putExtra(Intent.EXTRA_TEXT, sAux);
                 startActivity(Intent.createChooser(i, "choose one"));
-            } catch(Exception e) {
-                //e.toString();
+            } catch (Exception e) {
+                e.toString();
             }
         }
     }
-
 }

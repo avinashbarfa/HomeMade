@@ -1,4 +1,4 @@
-package com.avinashbarfa.homemad;
+package com.avinashbarfa.homemade;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +14,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.avinashbarfa.snaptickets.data.Data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,15 +29,14 @@ public class FeedBack extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        txtFeedBack = (EditText)findViewById(R.id.txtfeedback);
-
+        txtFeedBack = (EditText) findViewById(R.id.txtfeedback);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(view == fab) {
-                //    Data db = new Data();
+                if (view == fab) {
+                    //    Data db = new Data();
                     String url = "";
                     RequestQueue queue = Volley.newRequestQueue(FeedBack.this);
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -54,14 +52,13 @@ public class FeedBack extends AppCompatActivity {
                                     Toast.makeText(FeedBack.this, error.toString(), Toast.LENGTH_LONG).show();
                                 }
                             }
-                    )
-                    {
+                    ) {
                         @Override
                         protected Map<String, String> getParams() {
 
                             Map<String, String> params = new HashMap<>();
                             params.put("feedBackMessage", txtFeedBack.getText().toString());
-                            params.put("sessionID" , "avibarfa98@gmail.com");
+                            params.put("sessionID", "avibarfa98@gmail.com");
                             return params;
                         }
                     };
@@ -69,8 +66,5 @@ public class FeedBack extends AppCompatActivity {
                 }
             }
         });
-
     }
-
-
 }

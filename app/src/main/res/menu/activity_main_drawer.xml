@@ -32,6 +32,14 @@
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Logout" />
+            <item
+                android:id="@+id/nav_feedback"
+                android:icon="@drawable/ic_menu_share"
+                android:title="FeedBack"/>
+            <item
+                android:id="@+id/nav_aboutus"
+                android:icon="@drawable/ic_menu_send"
+                android:title="About Us" />
         </menu>
     </item>
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.avinashbarfa.snaptickets.AboutUs">
+    android:orientation="horizontal"
+    tools:context="com.avinashbarfa.homemade.AboutUs">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginTop="16dp"
                     android:background="@android:color/holo_orange_dark"
-                    android:text="@string/share_button"
+                    android:text="Share"
                     android:textColor="@android:color/background_light" />
 
                 <Button
@@ -57,7 +57,7 @@
                     android:layout_marginRight="36dp"
                     android:layout_marginTop="16dp"
                     android:background="#110B43"
-                    android:text="@string/contact_developer"
+                    android:text="Contact Developer"
                     android:textColor="@android:color/background_light" />
 
                 <TextView
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="@string/version"
+                    android:text="version 1.0"
                     android:textAlignment="center"
                     android:textSize="14sp" />
             </LinearLayout>

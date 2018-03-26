@@ -47,9 +47,15 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SelectLocation"
+        <activity
+            android:name=".SelectLocation"
             android:label="Select Location"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AboutUs" />
+        <activity
+            android:name=".FeedBack"
+            android:label="@string/title_activity_feed_back"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
