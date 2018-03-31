@@ -1,6 +1,7 @@
 package com.avinashbarfa.homemade;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,16 +22,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.avinashbarfa.homemade.Adapters.MyCategoriesAdapter;
 import com.avinashbarfa.homemade.Data.CategoriesList;
 import com.facebook.accountkit.AccountKit;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    String URL_DATA = "http://192.168.0.108/home-made/retrieve-categories.php";
     Button btnArrowDown;
     TextView locationMain;
     private RecyclerView recyclerView;
@@ -77,29 +91,49 @@ public class MainActivity extends AppCompatActivity
         });
 
         categoriesLists = new ArrayList<>();
-        CategoriesList categoriesList,categoriesList1,categoriesList2,categoriesList3,categoriesList4,categoriesList5,categoriesList6,categoriesList7;
+        loadRecyclerViewData();
 
-        categoriesList = new CategoriesList("All Categories","All items");
-        categoriesList1 = new CategoriesList("Acchar", "Have a taste");
-        categoriesList2 = new CategoriesList("Bakery", "Have a Look");
-        categoriesList3 = new CategoriesList("Papad", "Papad..");
-        categoriesList4 = new CategoriesList("All Categories","All items");
-        categoriesList5 = new CategoriesList("Acchar", "Have a taste");
-        categoriesList6 = new CategoriesList("Bakery", "Have a Look");
-        categoriesList7 = new CategoriesList("Papad", "Papad..");
-        categoriesLists.add(categoriesList);
-        categoriesLists.add(categoriesList1);
-        categoriesLists.add(categoriesList2);
-        categoriesLists.add(categoriesList3);
-        categoriesLists.add(categoriesList4);
-        categoriesLists.add(categoriesList5);
-        categoriesLists.add(categoriesList6);
-        categoriesLists.add(categoriesList7);
+    }
 
-        adapter = new MyCategoriesAdapter(categoriesLists,this);
-        recyclerView.setAdapter(adapter);
+    private void loadRecyclerViewData() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Categories...");
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray array = jsonObject.getJSONArray("result");
 
- }
+                    for(int i =0; i<array.length();i++){
+                        JSONObject object = array.getJSONObject(i);
+                        CategoriesList list = new CategoriesList(
+                                object.getString("category_name"),
+                                object.getString("category_subtitle"),
+                                object.getString("category_imageUrl"));
+
+                        categoriesLists.add(list);
+                    }
+                    adapter = new MyCategoriesAdapter(categoriesLists, getApplicationContext());
+                    recyclerView.setAdapter(adapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), error.getMessage() , Toast.LENGTH_LONG).show();
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
 
     @Override
     public void onBackPressed() {

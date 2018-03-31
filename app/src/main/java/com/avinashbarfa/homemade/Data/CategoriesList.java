@@ -8,12 +8,8 @@ public class CategoriesList {
 
     private String categoryId,categoryName,categorySubTitle,imageUrl;
 
-    public CategoriesList(String categoryName, String categorySubTitle) {
-        this.categoryName = categoryName;
-        this.categorySubTitle = categorySubTitle;
-    }
 
-    public CategoriesList(String categoryName, String categorySubTitle, String imageUrl) {
+    public CategoriesList(String categoryName, String categorySubTitle,String imageUrl) {
         this.categoryName = categoryName;
         this.categorySubTitle = categorySubTitle;
         this.imageUrl = imageUrl;

@@ -19,11 +19,11 @@ import java.util.List;
 
 public class MyCategoriesAdapter extends RecyclerView.Adapter<MyCategoriesAdapter.ViewHolder>{
 
-    private List<CategoriesList> categoryItems;
+    private List<CategoriesList> categoryLists;
     private Context context;
 
-    public MyCategoriesAdapter(List<CategoriesList> categoryItems, Context context) {
-        this.categoryItems = categoryItems;
+    public MyCategoriesAdapter(List<CategoriesList> categoryLists, Context context) {
+        this.categoryLists = categoryLists;
         this.context = context;
     }
 
@@ -35,7 +35,7 @@ public class MyCategoriesAdapter extends RecyclerView.Adapter<MyCategoriesAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        CategoriesList categoriesList = categoryItems.get(position);
+        CategoriesList categoriesList = categoryLists.get(position);
 
         holder.txtCategoryName.setText(categoriesList.getCategoryName());
         holder.txtCategorySubTitle.setText(categoriesList.getCategorySubTitle());
@@ -43,7 +43,7 @@ public class MyCategoriesAdapter extends RecyclerView.Adapter<MyCategoriesAdapte
 
     @Override
     public int getItemCount() {
-        return categoryItems.size();
+        return categoryLists.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

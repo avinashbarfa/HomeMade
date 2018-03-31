@@ -1,5 +1,6 @@
 package com.avinashbarfa.homemade;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -31,7 +32,9 @@ public class SelectLocation extends AppCompatActivity {
                 getLocationAccessPermission(); // to refresh on btn click
             }
         });
-
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Categories...");
+        progressDialog.show();
     }
 
     private void getLocationAccessPermission() {
@@ -66,4 +69,6 @@ public class SelectLocation extends AppCompatActivity {
             }
         }
     }
+
+
 }
