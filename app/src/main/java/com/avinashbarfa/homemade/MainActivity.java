@@ -2,9 +2,12 @@ package com.avinashbarfa.homemade;
 
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.Layout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,17 +15,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.avinashbarfa.homemade.Adapters.MyCategoriesAdapter;
+import com.avinashbarfa.homemade.Data.CategoriesList;
 import com.facebook.accountkit.AccountKit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Button btnArrowDown;
     TextView locationMain;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<CategoriesList> categoriesLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +44,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +75,31 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, SelectLocation.class));
             }
         });
-    }
+
+        categoriesLists = new ArrayList<>();
+        CategoriesList categoriesList,categoriesList1,categoriesList2,categoriesList3,categoriesList4,categoriesList5,categoriesList6,categoriesList7;
+
+        categoriesList = new CategoriesList("All Categories","All items");
+        categoriesList1 = new CategoriesList("Acchar", "Have a taste");
+        categoriesList2 = new CategoriesList("Bakery", "Have a Look");
+        categoriesList3 = new CategoriesList("Papad", "Papad..");
+        categoriesList4 = new CategoriesList("All Categories","All items");
+        categoriesList5 = new CategoriesList("Acchar", "Have a taste");
+        categoriesList6 = new CategoriesList("Bakery", "Have a Look");
+        categoriesList7 = new CategoriesList("Papad", "Papad..");
+        categoriesLists.add(categoriesList);
+        categoriesLists.add(categoriesList1);
+        categoriesLists.add(categoriesList2);
+        categoriesLists.add(categoriesList3);
+        categoriesLists.add(categoriesList4);
+        categoriesLists.add(categoriesList5);
+        categoriesLists.add(categoriesList6);
+        categoriesLists.add(categoriesList7);
+
+        adapter = new MyCategoriesAdapter(categoriesLists,this);
+        recyclerView.setAdapter(adapter);
+
+ }
 
     @Override
     public void onBackPressed() {
