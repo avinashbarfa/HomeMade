@@ -43,7 +43,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    String URL_DATA = "http://192.168.0.108/home-made/retrieve-categories.php";
+    String URL_DATA = "https://api.myjson.com/bins/sulcf";
     Button btnArrowDown;
     TextView locationMain;
     private RecyclerView recyclerView;
