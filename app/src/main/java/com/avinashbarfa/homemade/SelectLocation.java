@@ -32,9 +32,6 @@ public class SelectLocation extends AppCompatActivity {
                 getLocationAccessPermission(); // to refresh on btn click
             }
         });
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading Categories...");
-        progressDialog.show();
     }
 
     private void getLocationAccessPermission() {

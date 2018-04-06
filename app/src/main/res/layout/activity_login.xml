@@ -29,21 +29,11 @@
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/phoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            android:text="Phone Login"
-            android:textColor="@color/colorWhite" />
-
-        <Button
-            android:id="@+id/emailId"
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/googleBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email Login"
-            android:visibility="visible" />
-
+            android:layout_margin="16dp" />
 
     </LinearLayout>
 

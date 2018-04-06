@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avinashbarfa.homemade.Adapters.MyCategoriesAdapter;
 import com.avinashbarfa.homemade.Data.CategoriesList;
+import com.bumptech.glide.Glide;
 import com.facebook.accountkit.AccountKit;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,14 +50,34 @@ public class MainActivity extends AppCompatActivity
     String URL_DATA = "https://api.myjson.com/bins/sulcf";
     Button btnArrowDown;
     TextView locationMain;
+    TextView txtDisplayName, txtemailID;
+    ImageView userProfileImg;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<CategoriesList> categoriesLists;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null ) {
+                    startActivity(new Intent(MainActivity.this , LoginActivity.class));
+                }
+            }
+        };
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,6 +103,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headView  = navigationView.getHeaderView(0);
+        txtDisplayName = (TextView) headView.findViewById(R.id.txtDisplayName);
+        txtemailID = (TextView) headView.findViewById(R.id.txtemailID);
+        userProfileImg = (ImageView) headView.findViewById(R.id.userProfileImg);
+
 
         locationMain = (TextView) findViewById(R.id.location);
         //locationMain.setText();
@@ -91,7 +120,16 @@ public class MainActivity extends AppCompatActivity
         });
 
         categoriesLists = new ArrayList<>();
+        loadNavigationUserData();
         loadRecyclerViewData();
+
+    }
+
+    private void loadNavigationUserData() {
+        mAuth = FirebaseAuth.getInstance();
+        txtDisplayName.setText(mAuth.getCurrentUser().getDisplayName());
+        txtemailID.setText(mAuth.getCurrentUser().getEmail());
+        Glide.with(this).load(mAuth.getCurrentUser().getPhotoUrl()).into(userProfileImg);
 
     }
 
@@ -184,9 +222,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
-            AccountKit.logOut();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            finish();
+            mAuth.signOut();
         } else if (id == R.id.nav_feedback) {
             startActivity(new Intent(MainActivity.this, FeedBack.class));
         } else if(id == R.id.nav_aboutus) {
@@ -198,23 +234,4 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-    /*@Override
-    protected void onResume() {
-        super.onResume();
-
-        AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
-            @Override
-            public void onSuccess(Account account) {
-                Log.v("contact number" , account.getPhoneNumber().toString());
-
-            }
-
-
-            @Override
-            public void onError(AccountKitError accountKitError) {
-
-            }
-        });
-    }*/
 }
