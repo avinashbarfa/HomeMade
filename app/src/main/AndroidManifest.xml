@@ -55,7 +55,8 @@
             android:name=".FeedBack"
             android:label="@string/title_activity_feed_back"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ShowProducts"></activity>
+        <activity android:name=".ShowProducts" />
+        <activity android:name=".AddProduct"></activity>
     </application>
 
 </manifest>
