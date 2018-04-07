@@ -3,6 +3,8 @@ package com.avinashbarfa.homemade;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import com.avinashbarfa.homemade.Adapters.MyProductAdapter;
 import com.avinashbarfa.homemade.Data.Functions;
 import com.avinashbarfa.homemade.Data.Links;
 import com.avinashbarfa.homemade.Data.ProductData;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +37,15 @@ public class ShowProducts extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private List<ProductData> productData;
     Links urlLinks = new Links();
+
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +53,17 @@ public class ShowProducts extends AppCompatActivity {
 
         Functions functions = new Functions();
         if(!functions.isConnected(ShowProducts.this)) builderDialog(ShowProducts.this).show();
+
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null ) {
+                    startActivity(new Intent(ShowProducts.this , LoginActivity.class));
+                }
+            }
+        };
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);

@@ -8,17 +8,17 @@ import android.widget.Button;
 
 public class AboutUs extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnContact,btnFeedback;
+    Button btnContact,btnShare;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
         btnContact = (Button)findViewById(R.id.btnContact);
-        btnFeedback = (Button)findViewById(R.id.btnFeedback);
+        btnShare = (Button)findViewById(R.id.btnShare);
 
         btnContact.setOnClickListener(this);
-        btnFeedback.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class AboutUs extends AppCompatActivity implements View.OnClickListener {
             Intent email = new Intent(Intent.ACTION_SEND);
             email.putExtra(Intent.EXTRA_EMAIL, new String[]{"avibarfa98@gmail.com"});
             email.putExtra(Intent.EXTRA_SUBJECT, "");
-            email.putExtra(Intent.EXTRA_TEXT, "");
+            email.putExtra(Intent.EXTRA_TEXT, "Hello Team,");
 
             //need this to prompts email client only
             email.setType("message/rfc822");
@@ -35,11 +35,11 @@ public class AboutUs extends AppCompatActivity implements View.OnClickListener {
             startActivity(Intent.createChooser(email, "Choose an Email client :"));
         }
 
-        if (view == btnFeedback) {
+        if (view == btnShare) {
             try {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_SUBJECT, "Snap Ticket");
+                i.putExtra(Intent.EXTRA_SUBJECT, "Home Made");
                 String sAux = "\nLet me recommend you this application\n\n";
                 sAux = sAux + "https://play.google.com/store/apps/details?id=Orion.Soft \n\n";
                 i.putExtra(Intent.EXTRA_TEXT, sAux);

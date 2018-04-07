@@ -12,6 +12,8 @@ public class Links {
 
     private String retriveProductsURL = "https://api.myjson.com/bins/v543n";
 
+    private String postFeedbackURL = "";
+
 
     public String getDataBaseIPAddress() {
         return dataBaseIPAddress;
@@ -23,5 +25,9 @@ public class Links {
 
     public String getRetriveProductsURL() {
         return retriveProductsURL;
+    }
+
+    public String getPostFeedbackURL() {
+        return postFeedbackURL;
     }
 }
