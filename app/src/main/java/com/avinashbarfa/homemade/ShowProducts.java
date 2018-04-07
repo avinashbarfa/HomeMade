@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShowProducts extends AppCompatActivity {
 
@@ -37,9 +40,9 @@ public class ShowProducts extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private List<ProductData> productData;
     Links urlLinks = new Links();
-
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
+    String category_id;
     @Override
     protected void onStart() {
         super.onStart();
@@ -54,7 +57,7 @@ public class ShowProducts extends AppCompatActivity {
         Functions functions = new Functions();
         if(!functions.isConnected(ShowProducts.this)) builderDialog(ShowProducts.this).show();
 
-
+        Log.v("URL " , urlLinks.getRetriveProductsURL());
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -70,14 +73,17 @@ public class ShowProducts extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         productData = new ArrayList<>();
+        Bundle bundle = getIntent().getExtras();
+        category_id = bundle.getString("category_id");
         loadProductRecyclerViewData();
+
     }
 
     private void loadProductRecyclerViewData() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Categories...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, urlLinks.getRetriveProductsURL() , new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlLinks.getRetriveProductsURL() , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
@@ -97,16 +103,25 @@ public class ShowProducts extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    }
                 }
-            }
-        },
+            },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), error.getMessage() , Toast.LENGTH_LONG).show();
                     }
-                });
+                }
+            )
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("category_id" , category_id);
+                    return params;
+                }
+            };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }

@@ -9,11 +9,13 @@ public class CategoriesData {
     private String categoryId,categoryName,categorySubTitle,imageUrl;
 
 
-    public CategoriesData(String categoryName, String categorySubTitle, String imageUrl) {
+    public CategoriesData(String categoryId, String categoryName, String categorySubTitle, String imageUrl) {
+        this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categorySubTitle = categorySubTitle;
         this.imageUrl = imageUrl;
     }
+
 
     public String getCategoryId() {
         return categoryId;

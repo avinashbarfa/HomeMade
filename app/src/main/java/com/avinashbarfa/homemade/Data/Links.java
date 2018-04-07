@@ -6,11 +6,11 @@ package com.avinashbarfa.homemade.Data;
 
 public class Links {
 
-    private String dataBaseIPAddress = "http://192.168.0.105";
+    private String dataBaseIPAddress = "http://192.168.43.72";
 
-    private String retriveCategoriesURL = "https://api.myjson.com/bins/sulcf";
+    private String retriveCategoriesURL = getDataBaseIPAddress()+"/home-made/retrieve-categories.php";
 
-    private String retriveProductsURL = "https://api.myjson.com/bins/v543n";
+    private String retriveProductsURL = getDataBaseIPAddress()+"/home-made/retrieve-products.php";
 
     private String postFeedbackURL = "";
 
