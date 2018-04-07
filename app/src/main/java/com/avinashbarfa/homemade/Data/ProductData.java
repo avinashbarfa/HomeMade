@@ -14,6 +14,10 @@ public class ProductData {
         this.productPrice = productPrice;
     }
 
+    public ProductData() {
+
+    }
+
     public String getProductID() {
         return productID;
     }

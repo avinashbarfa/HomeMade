@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Categories...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, urlLinks.getRetriveCategoriesURL() , new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urlLinks.getRetrieveCategoriesURL() , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();

@@ -60,7 +60,10 @@
             android:label="@string/title_activity_feed_back"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ShowProducts" />
-        <activity android:name=".AddProduct"></activity>
+        <activity
+            android:name=".AddProduct"
+            android:label="Add Product">
+        </activity>
     </application>
 
 </manifest>

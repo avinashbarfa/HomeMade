@@ -57,7 +57,7 @@ public class ShowProducts extends AppCompatActivity {
         Functions functions = new Functions();
         if(!functions.isConnected(ShowProducts.this)) builderDialog(ShowProducts.this).show();
 
-        Log.v("URL " , urlLinks.getRetriveProductsURL());
+        Log.v("URL " , urlLinks.getRetrieveProductsURL());
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -83,7 +83,7 @@ public class ShowProducts extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Categories...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlLinks.getRetriveProductsURL() , new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlLinks.getRetrieveProductsURL() , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
