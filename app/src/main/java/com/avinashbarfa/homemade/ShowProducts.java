@@ -1,6 +1,9 @@
 package com.avinashbarfa.homemade;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avinashbarfa.homemade.Adapters.MyProductAdapter;
+import com.avinashbarfa.homemade.Data.Functions;
 import com.avinashbarfa.homemade.Data.Links;
 import com.avinashbarfa.homemade.Data.ProductData;
 
@@ -34,6 +38,9 @@ public class ShowProducts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_products);
+
+        Functions functions = new Functions();
+        if(!functions.isConnected(ShowProducts.this)) builderDialog(ShowProducts.this).show();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -79,5 +86,20 @@ public class ShowProducts extends AppCompatActivity {
                 });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    public AlertDialog.Builder builderDialog(Context context) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("No Internet Connection");
+        builder.setMessage("You need To have Internet Connection");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        return builder;
     }
 }

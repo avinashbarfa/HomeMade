@@ -1,6 +1,9 @@
 package com.avinashbarfa.homemade;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.widget.Toast;
 
 import android.support.annotation.NonNull;
 
+import com.avinashbarfa.homemade.Data.Functions;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -43,8 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    //    CheckInternetConnectivity internetConnectivity = new CheckInternetConnectivity();
-    //    if(!internetConnectivity.isConnected(LoginActivity.this)) builderDialog(LoginActivity.this).show();
+        Functions functions = new Functions();
+        if(!functions.isConnected(LoginActivity.this)) builderDialog(LoginActivity.this).show();
 
         button = (SignInButton) findViewById(R.id.googleBtn);
         mAuth = FirebaseAuth.getInstance();
@@ -129,6 +133,21 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+
+    public AlertDialog.Builder builderDialog(Context context) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("No Internet Connection");
+        builder.setMessage("You need To have Internet Connection");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        return builder;
+    }
 }
 
 

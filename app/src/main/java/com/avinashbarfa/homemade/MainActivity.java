@@ -2,11 +2,14 @@ package com.avinashbarfa.homemade;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -31,6 +34,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avinashbarfa.homemade.Adapters.MyCategoriesAdapter;
 import com.avinashbarfa.homemade.Data.CategoriesData;
+import com.avinashbarfa.homemade.Data.Functions;
 import com.avinashbarfa.homemade.Data.Links;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,6 +70,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Functions functions = new Functions();
+        if(!functions.isConnected(MainActivity.this)) builderDialog(MainActivity.this).show();
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -210,7 +216,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_add_product) {
-        //    startActivity(new Intent(MainActivity.this, .class));
+            startActivity(new Intent(MainActivity.this, AddProduct.class));
         } else if (id == R.id.nav_logout) {
             mAuth.signOut();
         } else if (id == R.id.nav_feedback) {
@@ -223,5 +229,21 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public AlertDialog.Builder builderDialog(Context context) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("No Internet Connection");
+        builder.setMessage("You need To have Internet Connection");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        return builder;
+    }
+
 
 }
