@@ -4,12 +4,12 @@ package com.avinashbarfa.homemade.Data;
  * Created by Avinash Barfa on 3/29/2018.
  */
 
-public class CategoriesList {
+public class CategoriesData {
 
     private String categoryId,categoryName,categorySubTitle,imageUrl;
 
 
-    public CategoriesList(String categoryName, String categorySubTitle,String imageUrl) {
+    public CategoriesData(String categoryName, String categorySubTitle, String imageUrl) {
         this.categoryName = categoryName;
         this.categorySubTitle = categorySubTitle;
         this.imageUrl = imageUrl;

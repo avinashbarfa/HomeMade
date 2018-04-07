@@ -3,14 +3,11 @@ package com.avinashbarfa.homemade;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,9 +30,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avinashbarfa.homemade.Adapters.MyCategoriesAdapter;
-import com.avinashbarfa.homemade.Data.CategoriesList;
+import com.avinashbarfa.homemade.Data.CategoriesData;
+import com.avinashbarfa.homemade.Data.Links;
 import com.bumptech.glide.Glide;
-import com.facebook.accountkit.AccountKit;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
@@ -47,17 +44,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    String URL_DATA = "https://api.myjson.com/bins/sulcf";
+
     Button btnArrowDown;
     TextView locationMain;
     TextView txtDisplayName, txtemailID;
     ImageView userProfileImg;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private List<CategoriesList> categoriesLists;
+    private List<CategoriesData> categoriesData;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-
+    Links urlLinks = new Links();
     @Override
     protected void onStart() {
         super.onStart();
@@ -68,6 +65,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -119,7 +117,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        categoriesLists = new ArrayList<>();
+        categoriesData = new ArrayList<>();
         loadNavigationUserData();
         loadRecyclerViewData();
 
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Categories...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urlLinks.getRetriveCategoriesURL() , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
@@ -147,14 +145,14 @@ public class MainActivity extends AppCompatActivity
 
                     for(int i =0; i<array.length();i++){
                         JSONObject object = array.getJSONObject(i);
-                        CategoriesList list = new CategoriesList(
+                        CategoriesData list = new CategoriesData(
                                 object.getString("category_name"),
                                 object.getString("category_subtitle"),
                                 object.getString("category_imageUrl"));
 
-                        categoriesLists.add(list);
+                        categoriesData.add(list);
                     }
-                    adapter = new MyCategoriesAdapter(categoriesLists, getApplicationContext());
+                    adapter = new MyCategoriesAdapter(categoriesData, getApplicationContext());
                     recyclerView.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();

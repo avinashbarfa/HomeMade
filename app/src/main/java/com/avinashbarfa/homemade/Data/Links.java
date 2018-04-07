@@ -8,11 +8,20 @@ public class Links {
 
     private String dataBaseIPAddress = "http://192.168.0.105";
 
+    private String retriveCategoriesURL = "https://api.myjson.com/bins/sulcf";
+
+    private String retriveProductsURL = "https://api.myjson.com/bins/v543n";
+
+
     public String getDataBaseIPAddress() {
         return dataBaseIPAddress;
     }
 
-    public void setDataBaseIPAddress(String dataBaseIPAddress) {
-        this.dataBaseIPAddress = dataBaseIPAddress;
+    public String getRetriveCategoriesURL() {
+        return retriveCategoriesURL;
+    }
+
+    public String getRetriveProductsURL() {
+        return retriveProductsURL;
     }
 }

@@ -42,7 +42,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".UpdateUserActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -55,7 +54,8 @@
         <activity
             android:name=".FeedBack"
             android:label="@string/title_activity_feed_back"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ShowProducts"></activity>
     </application>
 
 </manifest>

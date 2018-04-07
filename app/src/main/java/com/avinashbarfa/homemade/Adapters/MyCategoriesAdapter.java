@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.avinashbarfa.homemade.Data.CategoriesList;
+import com.avinashbarfa.homemade.Data.CategoriesData;
 import com.avinashbarfa.homemade.R;
 
 import java.util.List;
@@ -19,10 +19,10 @@ import java.util.List;
 
 public class MyCategoriesAdapter extends RecyclerView.Adapter<MyCategoriesAdapter.ViewHolder>{
 
-    private List<CategoriesList> categoryLists;
+    private List<CategoriesData> categoryLists;
     private Context context;
 
-    public MyCategoriesAdapter(List<CategoriesList> categoryLists, Context context) {
+    public MyCategoriesAdapter(List<CategoriesData> categoryLists, Context context) {
         this.categoryLists = categoryLists;
         this.context = context;
     }
@@ -35,10 +35,10 @@ public class MyCategoriesAdapter extends RecyclerView.Adapter<MyCategoriesAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        CategoriesList categoriesList = categoryLists.get(position);
+        CategoriesData categoriesData = categoryLists.get(position);
 
-        holder.txtCategoryName.setText(categoriesList.getCategoryName());
-        holder.txtCategorySubTitle.setText(categoriesList.getCategorySubTitle());
+        holder.txtCategoryName.setText(categoriesData.getCategoryName());
+        holder.txtCategorySubTitle.setText(categoriesData.getCategorySubTitle());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.avinashbarfa.homemade;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
